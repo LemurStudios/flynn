@@ -40,8 +40,10 @@ func NewClient(addr string) *Client {
 
 	return &Client{
 		c: &httpclient.Client{
-			URL:  fmt.Sprintf("http://%s:%d", host, port+1),
-			HTTP: http.DefaultClient,
+			URL: fmt.Sprintf("http://%s:%d", host, port+1),
+			HTTP: &http.Client{
+				Timeout: 2 * time.Second,
+			},
 		},
 	}
 }
